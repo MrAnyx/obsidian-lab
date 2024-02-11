@@ -27,8 +27,6 @@ EXTENSIONS = [
 if not os.path.isdir(VAULT) or not os.path.isdir(ATTACHMENT):
     raise Exception(f"Path {VAULT} or {ATTACHMENT} doesn't exist")
 
-attachment_path = Path(ATTACHMENT)
-
 image_list = []
 images_deleted = []
 
@@ -53,9 +51,6 @@ for file_path in progress_bar(files):
                     image_list.append(image)
 
 
-with open("../.output/image_list.json", "w", encoding="utf8") as file:
-    file.write(json.dumps(image_list, indent=4))
-
 for ext in EXTENSIONS:
     files = get_files_by_extension(ATTACHMENT, ext)
     progress_bar = get_progress_bar(f"Processing {ext} images: ", files, "images")
@@ -78,5 +73,5 @@ for ext in EXTENSIONS:
                 os.remove(source_full_path)
                 images_deleted.append(source_full_path)
 
-with open("../.output/images_deleted.json", "w", encoding="utf8") as file:
-    file.write(json.dumps(images_deleted, indent=4))
+# with open("../.output/images_deleted.json", "w", encoding="utf-8") as file:
+#     file.write(json.dumps(images_deleted, indent=4))
